@@ -43,17 +43,17 @@ enum TurnCommand:
 ;
 
 Additive returns IntExpression:
-	Multiplicative ({Additive.left=current} ("+" | "-") right+=Multiplicative)*;
+	Multiplicative ({Additive.left = current} "+" right += Multiplicative)*;
 
 Multiplicative returns IntExpression:
-	Primary ({Multiplicative.left=current} ("*" | "/") right+=Primary)*;
+	Primary ({Multiplicative.left = current} "*" right += Primary)*;
 
 Primary returns IntExpression:
 	IntLiteral | VariableReference | "(" Additive ")";
 
-IntLiteral: value=INT;
+IntLiteral: val = INT;
 
-VariableReference: var=[VariableDeclaration];
+VariableReference: var = [VariableDeclaration];
 
 REAL returns ecore::EFloat hidden():
 	INT? "." INT
