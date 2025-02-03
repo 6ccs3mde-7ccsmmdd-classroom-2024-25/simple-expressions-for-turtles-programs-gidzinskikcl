@@ -43,9 +43,23 @@ enum TurnCommand:
 ;
 
 IntExpression:
-	val = INT |
-	var = [VariableDeclaration]
+	val = Additive
 ;
+
+Additive returns IntExpression:
+	Multiplicative ({Additive.left=current} ("+" | "-") right+=Multiplicative)*;
+
+Multiplicative returns IntExpression:
+	Primary ({Multiplicative.left=current} ("*" | "/") right+=Primary)*;
+
+Primary returns IntExpression:
+	Variable | "(" Additive ")";
+
+Variable: NumberLiteral | NumberVariable;
+
+NumberLiteral: value=INT;
+
+NumberVariable: var=[VariableDeclaration];
 
 REAL returns ecore::EFloat hidden():
 	INT? "." INT
