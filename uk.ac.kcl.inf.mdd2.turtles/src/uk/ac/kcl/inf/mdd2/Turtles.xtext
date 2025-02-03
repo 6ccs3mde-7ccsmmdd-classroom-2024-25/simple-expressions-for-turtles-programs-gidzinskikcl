@@ -49,11 +49,11 @@ Multiplicative returns IntExpression:
 	Primary ({Multiplicative.left = current} "*" right += Primary)*;
 
 Primary returns IntExpression:
-	IntLiteral | VariableReference | "(" Additive ")";
+	IntLiteral | IntVarExpression | "(" Additive ")";
 
 IntLiteral: val = INT;
 
-VariableReference: var = [VariableDeclaration];
+IntVarExpression: var = [VariableDeclaration];
 
 REAL returns ecore::EFloat hidden():
 	INT? "." INT
