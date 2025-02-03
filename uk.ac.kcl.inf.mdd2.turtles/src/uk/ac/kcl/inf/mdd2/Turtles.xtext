@@ -21,13 +21,13 @@ VariableDeclaration:
 ;
 
 LoopStatement:
-	count = Additive "times" "do"
+	count = Addition "times" "do"
 	  statements += Statement+
 	"end"
 ;
 
 MoveStatement:
-	command = MoveCommand "(" steps = Additive ")"
+	command = MoveCommand "(" steps = Addition ")"
 ;
 
 enum MoveCommand:
@@ -42,14 +42,14 @@ enum TurnCommand:
 	left | right
 ;
 
-Additive returns IntExpression:
-	Multiplicative ({Additive.left = current} "+" right += Multiplicative)*;
+Addition returns IntExpression:
+	Multiplication ({Addition.left = current} "+" right += Multiplication)*;
 
-Multiplicative returns IntExpression:
-	Primary ({Multiplicative.left = current} "*" right += Primary)*;
+Multiplication returns IntExpression:
+	Primary ({Multiplication.left = current} "*" right += Primary)*;
 
 Primary returns IntExpression:
-	IntLiteral | IntVarExpression | "(" Additive ")";
+	IntLiteral | IntVarExpression | "(" Addition ")";
 
 IntLiteral: val = INT;
 
