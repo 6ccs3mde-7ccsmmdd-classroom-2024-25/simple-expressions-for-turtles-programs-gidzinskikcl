@@ -53,13 +53,13 @@ Multiplicative returns IntExpression:
 	Primary ({Multiplicative.left=current} ("*" | "/") right+=Primary)*;
 
 Primary returns IntExpression:
-	Variable | "(" Additive ")";
+	NumberLiteral | "(" Additive ")";
 
-Variable: NumberLiteral | NumberVariable;
+NumberLiteral: IntLiteral | VariableLiteral;
 
-NumberLiteral: value=INT;
+IntLiteral: value=INT;
 
-NumberVariable: var=[VariableDeclaration];
+VariableLiteral: var=[VariableDeclaration];
 
 REAL returns ecore::EFloat hidden():
 	INT? "." INT
